@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- <meta name="viewport" content="width=500, initial-scale=1"> -->
+	<!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script> -->
+	
+<link rel="stylesheet" type="text/css" href="css/stylecelda.css">
+	<title>Mi Tabla</title>
+</head>
+
+<body>
+	<script>
+		var ancho = (window.innerWidth);
+		var alto = (window.innerHeight);
+
+		//cuando es documento nuevo tomar 8 rem x 16 = 128px por celda
+		//cuando es documento nuevo tomar 28px por altura celda 
+		var maxColumna = Math.floor(ancho/128);
+		var maxFila = 40;
+		var sumaAncho = 0;
+	</script>
+	<header id="titulo-menu" >
+			<input type="text" id="namedoc" placeholder="Nombra esta tabla">
+	</header><!-- /header -->
+
+	<div id="hojaWork">
+		<div id="barraCabecera">
+		</div>
+		<div id="hoja">
+		
+		<script type="text/javascript">
+		var res = '';
+				for (var i = 1; i <= maxFila; i++) {
+					res += '<div class="grupoDiv" id="gf'+i+
+					'"><span id="f'+i+'c0" class="numeroFila">'+i+'</span>';
+					for (var j = 1; j <=maxColumna; j++) {
+						res+='<input type="text" class="celda" id="f'+i+'c'+j+'" onkeydown="muevefoco('+i+','+j+')">'
+					}
+					res+='</div>';
+				}
+				
+				document.write(res);
+				 window.onload = function() {
+				 	//='16px'
+				// 	$("#f2c1").css("background-color", "yellow"); 
+				// 	$("#namedoc").css("background-color", "yellow"); 
+				// document.getElementById('link').onclick = function(code) {
+    //     this.href = 'data:text/html;charset=utf-8,'
+    //       + encodeURIComponent(res);
+      //}
+     }
+     window.onscroll = function() {
+  // console.log("Vertical: " + window.scrollY);
+  // console.log("Horizontal: " + window.scrollX);
+
+}
+ function moviendo_scrollHoja(){
+// 	alert("holis");
+ }
+ var divHoja = document.getElementById("hoja");
+ divHoja.onscroll= function(){
+ 	console.log("Vertical: " + divHoja.scrollTop);
+  console.log("Horizontal: " + divHoja.scrollLeft);
+ }
+// window.addEventListener("scroll", moviendo_scroll);
+//moviendo_scroll();
+					
+
+function muevefoco(f,c){
+					document.addEventListener('keydown', function (e){
+						
+							if (e.keyCode == 38 && f > 1){
+							f-=1;
+							document.getElementById("f"+f+"c"+c).focus();
+						} 
+						
+						if (e.keyCode == 40 || e.keyCode == 13){
+							f+=1;
+							document.getElementById("f"+f+"c"+c).focus();
+							}
+						
+						
+						},false);
+				}
+				function displayWindowSize(){
+					var w = document.documentElement.clientWidth;
+        			var h = document.documentElement.clientHeight;
+        			sumaAncho = maxColumna*128+170;
+        			var anchoN = Math.ceil(sumaAncho*100/w)+'%';
+        			console.log("w "+anchoN);
+        			var gf = '';
+        			for (var i = 1; i <= maxFila; i++) {
+        				gf=document.getElementById('gf'+i);
+        				gf.style.width = anchoN;
+        			}
+
+				}
+
+				window.addEventListener("resize", displayWindowSize);
+				displayWindowSize();
+				
+			</script>
+
+		</div>
+
+	</div>
+		
+	
+	<footer id="pieInfo">
+		<a href="#" id="link" download="contenido.txt">Descargar</a>
+	</footer>
+	
+</body>
+</html>
